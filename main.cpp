@@ -1,7 +1,7 @@
-﻿#define GLEW_STATIC
-#include <GL/glew.h>
+﻿#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <vector>
 #include "Object3D.hpp"
 #include "Camera.hpp"
 #include "ObjectCreator.hpp"
@@ -43,6 +43,9 @@ int main() {
 	}
 	glUseProgram(program.programId);
 	li = Lighting(Vector3(0.5f, 2, 2), &program);
+	li.pointLights[0].position.x = 0.5f;
+	li.pointLights[0].position.y = 2;
+	li.pointLights[0].position.z = 0;
 	re = RenderUtils(&program, &li, window);
 	re.init();
 	cam = Camera(&re);
