@@ -2,18 +2,9 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <vector>
-#include "Object3D.hpp"
-#include "Camera.hpp"
-#include "ObjectCreator.hpp"
-Shader vert, frag;
-Program program;
-Lighting li;
-RenderUtils re;
-Camera cam;
-Object3D sphere;
-Object3D cube;
-Texture gray;
-Texture red;
+#include "Object3D.h"
+#include "Camera.h"
+#include "ObjectCreator.h"
 int main() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -32,30 +23,29 @@ int main() {
 		std::cout << "Failed to initialize GLEW" << std::endl;
 		return 2;
 	}
-
-	vert = Shader(std::ifstream("vertex.glsl"), Shader::Type::Vertex);
+	Shader vert(std::ifstream("vertex.glsl"), Shader::Type::Vertex);
 	vert.compile();
-	frag = Shader(std::ifstream("fragment.glsl"), Shader::Type::Fragment);
+	Shader frag(std::ifstream("fragment.glsl"), Shader::Type::Fragment);
 	frag.compile();
-	program = Program(&vert, &frag);
+	Program program(&vert, &frag);
 	if (!program.link()) {
 		return 3;
 	}
 	glUseProgram(program.programId);
-	li = Lighting(Vector3(0.5f, 2, 2), &program);
+	Lighting li(Vector3(0.5f, 2, 2), &program);
 	li.pointLights[0].position.x = 0.5f;
 	li.pointLights[0].position.y = 2;
 	li.pointLights[0].position.z = 0;
-	re = RenderUtils(&program, &li, window);
+	RenderUtils re(&program, &li, window);
 	re.init();
-	cam = Camera(&re);
+	Camera cam(&re);
 	cam.setPos(Vector3(0.5f, 2, 2));
 	GLubyte color[] = { 80, 80, 80 };
-	gray = Texture(color, &program, Texture::Config());
-	cube = ObjectCreator::createBox(Vector3(2, 0, -2), Vector3(1, 1, 1), &cam, &gray);
+	Texture gray(color, &program, Texture::Config());
+	Object3D cube = ObjectCreator::createBox(Vector3(2, 0, -2), Vector3(1, 1, 1), &cam, &gray);
 	GLubyte color2[] = { 255, 0, 0 };
-	red = Texture(color2, &program, Texture::Config());
-	sphere = ObjectCreator::createSphere(Vector3(0, 0, 0), 1.0f, 20, 20, &cam, &red);
+	Texture red(color2, &program, Texture::Config());
+	Object3D sphere = ObjectCreator::createSphere(Vector3(0, 0, 0), 1.0f, 20, 20, &cam, &red);
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);

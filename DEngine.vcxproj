@@ -74,6 +74,10 @@
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);glew-2.3.1\include;glfw-3.4.bin.WIN64\include;glm</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);glew-2.3.1\lib\Release\x64;glfw-3.4.bin.WIN64\lib-vc2022</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);glew-2.3.1\include;glfw-3.4.bin.WIN64\include;glm</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);glew-2.3.1\lib\Release\x64;glfw-3.4.bin.WIN64\lib-vc2022</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -129,25 +133,37 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);glew32.lib;glfw3.lib;opengl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Lighting.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix4.cpp" />
+    <ClCompile Include="Object3D.cpp" />
+    <ClCompile Include="ObjectCreator.cpp" />
+    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="RenderUtils.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.hpp" />
-    <ClInclude Include="Lighting.hpp" />
-    <ClInclude Include="Matrix4.hpp" />
-    <ClInclude Include="Object3D.hpp" />
-    <ClInclude Include="ObjectCreator.hpp" />
-    <ClInclude Include="Program.hpp" />
-    <ClInclude Include="RenderUtils.hpp" />
-    <ClInclude Include="Shader.hpp" />
-    <ClInclude Include="Texture.hpp" />
-    <ClInclude Include="Vector2.hpp" />
-    <ClInclude Include="Vector3.hpp" />
-    <ClInclude Include="Vector4.hpp" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Lighting.h" />
+    <ClInclude Include="Matrix4.h" />
+    <ClInclude Include="Object3D.h" />
+    <ClInclude Include="ObjectCreator.h" />
+    <ClInclude Include="Program.h" />
+    <ClInclude Include="RenderUtils.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="fragment.glsl">

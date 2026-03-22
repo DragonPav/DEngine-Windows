@@ -1,0 +1,55 @@
+﻿#pragma once
+#include "Vector3.h"
+#include "Program.h"
+#include "Object3D.h"
+#include <vector>
+#include <GL/glew.h>
+class DirLight {
+public:
+	Program* p;
+	Vector3 ambient;
+	Vector3 diffuse;
+	Vector3 specular;
+	Vector3 direction;
+	GLfloat constant = 1.0f;
+	GLfloat linear = 0.09f;
+	GLfloat quadratic = 0.032f;
+	GLint constantLoc = -1;
+	GLint linearLoc = -1;
+	GLint quadraticLoc = -1;
+	void bind();
+	DirLight() = delete;
+	DirLight(Program *p);
+};
+class PointLight {
+public:
+	Program* p;
+	Vector3 ambient;
+	Vector3 diffuse;
+	Vector3 specular;
+	Vector3 position;
+	GLfloat constant = 1;
+	GLfloat linear = 0.09f;
+	GLfloat quadratic = 0.032f;
+	GLint constantLoc = -1;
+	GLint linearLoc = -1;
+	GLint quadraticLoc = -1;
+	void bind();
+	PointLight() = delete;
+	PointLight(Program* p, GLint number);
+};
+class Lighting {
+public:
+	Vector3 cameraPos;
+	DirLight* dirLight;
+	std::vector<PointLight> pointLights;
+	void bind() {
+		cameraPos.uniform();
+		dirLight->bind();
+		for (PointLight pointLight : pointLights) {
+			pointLight.bind();
+		}
+	}
+	Lighting() = delete;
+	Lighting(Vector3 camPos, Program* p);
+};
