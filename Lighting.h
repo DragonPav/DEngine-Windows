@@ -43,13 +43,7 @@ public:
 	Vector3 cameraPos;
 	DirLight* dirLight;
 	std::vector<PointLight> pointLights;
-	void bind() {
-		cameraPos.uniform();
-		dirLight->bind();
-		for (PointLight pointLight : pointLights) {
-			pointLight.bind();
-		}
-	}
+	void bind();
 	Lighting() = delete;
 	Lighting(Vector3 camPos, Program* p);
 };

@@ -43,7 +43,7 @@ int main() {
 	GLubyte color[] = { 80, 80, 80 };
 	Texture gray(color, &program, Texture::Config());
 	Object3D cube = ObjectCreator::createBox(Vector3(2, 0, -2), Vector3(1, 1, 1), &cam, &gray);
-	GLubyte color2[] = { 255, 0, 0 };
+	GLubyte color2[] = { 0xff, 0, 0 };
 	Texture red(color2, &program, Texture::Config());
 	Object3D sphere = ObjectCreator::createSphere(Vector3(0, 0, 0), 1.0f, 20, 20, &cam, &red);
 	int width, height;
