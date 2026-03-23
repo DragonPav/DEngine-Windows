@@ -1,8 +1,10 @@
 ﻿#pragma once
 #include "Matrix4.h"
 #include "RenderUtils.h"
+#include "CameraControl.h"
 #include <GL/glew.h>
 class RenderUtils;
+class CameraControl;
 class Camera {
 public:
 	Matrix4 projection;
@@ -16,10 +18,7 @@ public:
 	void lookAt(Vector3 pos);
 	void setPos(Vector3 pos);
 	void update();
-	//TODO: add this
-	/*
-	* void setCameraControl(CameraControl cc) {}
-	*/
+	void setCameraControl(CameraControl* cc);
 	Camera() = delete;
 	Camera(RenderUtils* re);
 };

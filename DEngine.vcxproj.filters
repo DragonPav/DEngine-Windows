@@ -54,6 +54,9 @@
     <ClCompile Include="Vector4.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="CameraControl.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -92,11 +95,11 @@
     <ClInclude Include="ObjectCreator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="CameraControl.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="fragment.glsl">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
     <Text Include="vertex.glsl">
       <Filter>Файлы ресурсов</Filter>
     </Text>
@@ -104,6 +107,9 @@
       <Filter>Файлы ресурсов</Filter>
     </Text>
     <Text Include="fragment_nolight.glsl">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="fragment.glsl">
       <Filter>Файлы ресурсов</Filter>
     </Text>
   </ItemGroup>

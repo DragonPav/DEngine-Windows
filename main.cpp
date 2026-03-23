@@ -5,6 +5,8 @@
 #include "Object3D.h"
 #include "Camera.h"
 #include "ObjectCreator.h"
+#include "CameraControl.h"
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 int main() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -23,6 +25,7 @@ int main() {
 		std::cout << "Failed to initialize GLEW" << std::endl;
 		return 2;
 	}
+	glfwSetKeyCallback(window, key_callback);
 	Shader vert(std::ifstream("vertex.glsl"), Shader::Type::Vertex);
 	vert.compile();
 	Shader frag(std::ifstream("fragment.glsl"), Shader::Type::Fragment);
@@ -50,6 +53,8 @@ int main() {
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
 	cam.perspective(80, (float) width / (float) height, 0.1f, 100.0f);
+	CameraControl cc(&re);
+	cam.setCameraControl(&cc);
 	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -70,4 +75,9 @@ int main() {
 	re.dispose();
 	program.deleteProgram();
 	return 0;
+}
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+		glfwSetWindowShouldClose(window, true);
+	}
 }

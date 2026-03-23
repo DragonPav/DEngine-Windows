@@ -17,6 +17,9 @@ void Camera::update() {
 	projection.uniform();
 	view.uniform();
 }
+void Camera::setCameraControl(CameraControl* cc) {
+	cc->setup(this);
+}
 Camera::Camera(RenderUtils* re) {
 	rendUtils = re;
 	projection = Matrix4(glGetUniformLocation(re->p->programId, "projection"));
