@@ -17,5 +17,6 @@ public:
 	int glType = GL_TEXTURE0;
 	void dispose();
 	Texture(GLubyte(&rgb)[3], Program* p, Config cfg);
+	Texture(Program* p, std::string file, Config cfg);
 	Texture() = delete;
 };

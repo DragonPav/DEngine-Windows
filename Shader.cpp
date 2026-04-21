@@ -1,11 +1,15 @@
 #include "Shader.h"
-Shader::Shader(std::ifstream file, Type type) {
+Shader::Shader(std::ifstream *file, Type type) {
+	if (!file->is_open()) {
+		std::cerr << "Failed to open a file! Shader type: " << type <<  std::endl;
+		throw std::runtime_error("failed to open");
+	}
 	std::string source;
 	std::string line;
-	while (std::getline(file, line)) {
+	while (std::getline(*file, line)) {
 		source += line + "\r\n";
 	}
-	file.close();
+	file->close();
 	switch (type) {
 	case Vertex:
 		shaderId = glCreateShader(GL_VERTEX_SHADER);

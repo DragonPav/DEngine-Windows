@@ -11,7 +11,7 @@ public:
 	};
 	GLuint shaderId = 0;
 	Type type = Vertex;
-	Shader(std::ifstream file, Type type);
+	Shader(std::ifstream *file, Type type);
 	Shader() = default;
 	bool compile();
 	void deleteShader();

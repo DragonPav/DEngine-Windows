@@ -7,6 +7,7 @@
 #include "ObjectCreator.h"
 #include "CameraControl.h"
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+const std::string pwd = "C:\\Users\\DragonPav\\VSCodeProjects\\DEngine-Windows\\";
 int main() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -26,9 +27,11 @@ int main() {
 		return 2;
 	}
 	glfwSetKeyCallback(window, key_callback);
-	Shader vert(std::ifstream("vertex.glsl"), Shader::Type::Vertex);
+	std::ifstream vertex(pwd + "vertex.glsl");
+	std::ifstream fragment(pwd + "fragment.glsl");
+	Shader vert(&vertex, Shader::Type::Vertex);
 	vert.compile();
-	Shader frag(std::ifstream("fragment.glsl"), Shader::Type::Fragment);
+	Shader frag(&fragment, Shader::Type::Fragment);
 	frag.compile();
 	Program program(&vert, &frag);
 	if (!program.link()) {
@@ -43,9 +46,8 @@ int main() {
 	re.init();
 	Camera cam(&re);
 	cam.setPos(Vector3(0.5f, 2, 2));
-	GLubyte color[] = { 80, 80, 80 };
-	Texture gray(color, &program, Texture::Config());
-	Object3D cube = ObjectCreator::createBox(Vector3(2, 0, -2), Vector3(1, 1, 1), &cam, &gray);
+	Texture cat(&program, pwd + "cat.jpg", Texture::Config());
+	Object3D cube = ObjectCreator::createBox(Vector3(2, 0, -2), Vector3(1, 1, 1), &cam, &cat);
 	GLubyte color2[] = { 0xff, 0, 0 };
 	Texture red(color2, &program, Texture::Config());
 	Object3D sphere = ObjectCreator::createSphere(Vector3(0, 0, 0), 1.0f, 20, 20, &cam, &red);
@@ -70,7 +72,7 @@ int main() {
 	}
 	cube.dispose();
 	sphere.dispose();
-	gray.dispose();
+	cat.dispose();
 	red.dispose();
 	re.dispose();
 	program.deleteProgram();
