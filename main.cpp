@@ -2,12 +2,13 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <vector>
+#include "Program.h"
 #include "Object3D.h"
 #include "Camera.h"
 #include "ObjectCreator.h"
 #include "CameraControl.h"
+#include "StaticModel.h"
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-const std::string pwd = "C:\\Users\\DragonPav\\VSCodeProjects\\DEngine-Windows\\";
 int main() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -27,8 +28,8 @@ int main() {
 		return 2;
 	}
 	glfwSetKeyCallback(window, key_callback);
-	std::ifstream vertex(pwd + "vertex.glsl");
-	std::ifstream fragment(pwd + "fragment.glsl");
+	std::ifstream vertex("vertex.glsl");
+	std::ifstream fragment("fragment.glsl");
 	Shader vert(&vertex, Shader::Type::Vertex);
 	vert.compile();
 	Shader frag(&fragment, Shader::Type::Fragment);
@@ -46,11 +47,14 @@ int main() {
 	re.init();
 	Camera cam(&re);
 	cam.setPos(Vector3(0.5f, 2, 2));
-	Texture cat(&program, pwd + "cat.jpg", Texture::Config());
+	Texture cat(&program, "cat.jpg", Texture::Config());
 	Object3D cube = ObjectCreator::createBox(Vector3(2, 0, -2), Vector3(1, 1, 1), &cam, &cat);
 	GLubyte color2[] = { 0xff, 0, 0 };
 	Texture red(color2, &program, Texture::Config());
 	Object3D sphere = ObjectCreator::createSphere(Vector3(0, 0, 0), 1.0f, 20, 20, &cam, &red);
+	Object3D sphere2 = ObjectCreator::createSphere(Vector3(0, 0, -2), 1.0f, 20, 20, &cam, &red);
+	Object3D* s[] = {&sphere,&sphere2};
+	StaticModel sm(&cam, &re, s, 2);
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
@@ -64,9 +68,9 @@ int main() {
 		cube.begin();
 		cube.render();
 		cube.end();
-		sphere.begin();
-		sphere.render();
-		sphere.end();
+		sm.begin();
+		sm.render();
+		sm.end();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

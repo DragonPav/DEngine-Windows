@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="DEngine-Windows.vcxproj" Id="9563f043-8fe1-4a62-b589-bfde3bc2068a" />
+</Solution>

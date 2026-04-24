@@ -43,7 +43,6 @@ void mouse_pos_callback(GLFWwindow* window, double xpos, double ypos) {
 }
 void CameraControl::setup(Camera* came) {
 	camera = came;
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetMouseButtonCallback(window, mouse_button_callback);
 	glfwSetCursorPosCallback(window, mouse_pos_callback);
 }
