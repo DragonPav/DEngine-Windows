@@ -17,15 +17,6 @@ void DirLight::bind() {
 	diffuse.uniform();
 	specular.uniform();
 	direction.uniform();
-	if (constantLoc != -1) {
-		glUniform1f(constantLoc, constant);
-	}
-	if (linearLoc != -1) {
-		glUniform1f(linearLoc, linear);
-	}
-	if (quadraticLoc != -1) {
-		glUniform1f(quadraticLoc, quadratic);
-	}
 }
 PointLight::PointLight(Program* p, GLint number) {
 	this->p = p;
@@ -63,16 +54,14 @@ void PointLight::bind() {
 		glUniform1f(quadraticLoc, quadratic);
 	}
 }
-Lighting::Lighting(Vector3 camPos, Program* p) {
+Lighting::Lighting(Vector3 camPos, Program* p) : dirLight(p) {
 	cameraPos = Vector3(camPos.x, camPos.y, camPos.z);
 	cameraPos.uniformL = glGetUniformLocation(p->programId, "cameraPos");
-	DirLight dir(p);
-	dirLight = &dir;
 	pointLights.push_back(PointLight(p, 0));
 }
 void Lighting::bind() {
 	cameraPos.uniform();
-	dirLight->bind();
+	dirLight.bind();
 	for (PointLight pointLight : pointLights) {
 		pointLight.bind();
 	}

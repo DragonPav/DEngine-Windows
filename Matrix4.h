@@ -11,9 +11,9 @@ public:
 	glm::mat4 values{};
 	GLint uniformL = -1;
 	void uniform();
-	void rotate(const Vector3 &axis, float angle, Object3D* obj);
+	void rotate(const Vector3 &axis, float angle, Object3D* obj, bool usePos);
 	void translate(const Vector3 &pos);
-	void scale(const Vector3 &size, Object3D* obj);
+	void scale(const Vector3 &size, Object3D* obj, bool usePos);
 	Matrix4();
 	Matrix4(GLint loc);
 };

@@ -1,15 +1,17 @@
 #pragma once
 #include "Object3D.h"
+#include "ObjectBuffer.h"
+#include <vector>
 class StaticModel {
 public:
     Matrix4 model;
-    GLfloat* vertexBuffer{};
-	GLuint* indexBuffer{};
-	GLfloat* texBuffer{};
-	GLfloat* normalBuffer{};
+    std::vector<GLfloat> vertexBuffer;
+	std::vector<GLuint> indexBuffer;
+	std::vector<GLfloat> texBuffer;
+	std::vector<GLfloat> normalBuffer;
     Texture* texture;
     GLuint vertBufSize = 0, indexBufSize = 0, texBufSize = 0, normalBufSize = 0;
-	unsigned int* offsets;
+	ObjectBuffer b;
 	Camera* cam = nullptr;
 	RenderUtils* renderUtils = nullptr;
     void begin();
@@ -17,5 +19,5 @@ public:
 	void end();
 	void dispose();
 	StaticModel() = delete;
-	StaticModel(Camera* camera, RenderUtils* rend, Object3D* objs[], unsigned int count);
+	StaticModel(Camera* camera, RenderUtils* rend, std::vector<Object3D> objs);
 };

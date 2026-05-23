@@ -1,20 +1,23 @@
 ﻿#pragma once
+#include <vector>
 #include "Texture.h"
 #include "Camera.h"
+#include "ObjectBuffer.h"
 class Camera;
 class RenderUtils;
 class Object3D {
 public:
-	Vector3* position = nullptr;
+	Vector3 position;
 	Matrix4 model;
-	GLfloat* vertexBuffer{};
-	GLuint* indexBuffer{};
-	GLfloat* texBuffer{};
-	GLfloat* normalBuffer{};
+	std::vector<GLfloat> vertexBuffer;
+	std::vector<GLuint> indexBuffer;
+	std::vector<GLfloat> texBuffer;
+	std::vector<GLfloat> normalBuffer;
 	Texture* texture;
-	GLuint vertBufSize = 0, indexBufSize = 0, texBufSize = 0, normalBufSize = 0;
+	ObjectBuffer b;
 	Camera* cam = nullptr;
 	RenderUtils* renderUtils = nullptr;
+	void setup();
 	void begin();
 	void render();
 	void end();

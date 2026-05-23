@@ -6,7 +6,6 @@ in vec2 TexCoord;
 in vec3 FragPos;
 in vec3 Normal;
 uniform sampler2D textureUnit;
-uniform float useLighting;
 uniform vec3 cameraPos;
 struct DirectionLight {
     vec3 direction;

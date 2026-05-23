@@ -21,22 +21,22 @@ void mouse_pos_callback(GLFWwindow* window, double xpos, double ypos) {
 		glfwGetCursorPos(window, &x, &y);
 		if (x > startX) {
 			if (x - startX >= 80) {
-				camera->view.rotate(Vector3(0, 1, 0), (float) (x - startX) / 5000, nullptr);
+				camera->view.rotate(Vector3(0, 1, 0), (float) (x - startX) / 5000, nullptr, false);
 			}
 		}
 		else if (x < startX) {
 			if (startX - x >= 80) {
-				camera->view.rotate(Vector3(0, 1, 0), (float) -(startX - x) / 5000, nullptr);
+				camera->view.rotate(Vector3(0, 1, 0), (float) -(startX - x) / 5000, nullptr, false);
 			}
 		}
 		if (y > startY) {
 			if (y - startY >= 80) {
-				camera->view.rotate(Vector3(1, 0, 0), (float) -(startY - y) / 5000, nullptr);
+				camera->view.rotate(Vector3(1, 0, 0), (float) -(startY - y) / 5000, nullptr, false);
 			}
 		}
 		else if (y < startY) {
 			if (startY - y >= 80) {
-				camera->view.rotate(Vector3(1, 0, 0), (float) (y - startY) / 5000, nullptr);
+				camera->view.rotate(Vector3(1, 0, 0), (float) (y - startY) / 5000, nullptr, false);
 			}
 		}
 	}

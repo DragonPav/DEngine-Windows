@@ -1,6 +1,6 @@
 #include "ObjectCreator.h"
 #include <vector>
-Object3D ObjectCreator::createCustom(GLfloat* verts, GLuint* indxs, GLfloat* texCoords, GLfloat* normals, Camera* camera, Texture* texture) {
+Object3D ObjectCreator::createCustom(std::vector<GLfloat> verts, std::vector<GLuint> indxs, std::vector<GLfloat> texCoords, std::vector<GLfloat> normals, Camera* camera, Texture* texture) {
 	if (camera == nullptr) {
 		throw std::runtime_error("Camera is null");
 	}
@@ -12,6 +12,7 @@ Object3D ObjectCreator::createCustom(GLfloat* verts, GLuint* indxs, GLfloat* tex
 	ret.indexBuffer = indxs;
 	ret.texBuffer = texCoords;
 	ret.normalBuffer = normals;
+	ret.setup();
 	return ret;
 }
 Object3D ObjectCreator::createBox(Vector3 pos, Vector3 size, Camera* camera, Texture* texture) {
@@ -141,21 +142,22 @@ Object3D ObjectCreator::createBox(Vector3 pos, Vector3 size, Camera* camera, Tex
 		0, -1, 0,
 		0, -1, 0
 	};
-	ret.position = &pos;
-	ret.vertexBuffer = (GLfloat*)malloc(sizeof(vertices));
-	memcpy(ret.vertexBuffer, &vertices, sizeof(vertices));
-	ret.indexBuffer = (GLuint*)malloc(sizeof(indices));
-	memcpy(ret.indexBuffer, &indices, sizeof(indices));
-	ret.texBuffer = (GLfloat*)malloc(sizeof(texCoords));
-	memcpy(ret.texBuffer, &texCoords, sizeof(texCoords));
-	if (camera->rendUtils->lighting != nullptr) {
-		ret.normalBuffer = (GLfloat*)malloc(sizeof(normals));
-		memcpy(ret.normalBuffer, &normals, sizeof(normals));
-		ret.normalBufSize = sizeof(normals);
+	ret.position = pos;
+	for (int i = 0; i < sizeof(vertices) / sizeof(GLfloat); i++) {
+		ret.vertexBuffer.push_back(vertices[i]);
 	}
-	ret.vertBufSize = sizeof(vertices);
-	ret.indexBufSize = sizeof(indices);
-	ret.texBufSize = sizeof(texCoords);
+	for (int i = 0; i < sizeof(indices) / sizeof(GLuint); i++) {
+		ret.indexBuffer.push_back(indices[i]);
+	}
+	for (int i = 0; i < sizeof(texCoords) / sizeof(GLfloat); i++) {
+		ret.texBuffer.push_back(texCoords[i]);
+	}
+	if (camera->rendUtils->lighting != nullptr) {
+		for (int i = 0; i < sizeof(normals) / sizeof(GLfloat); i++) {
+			ret.normalBuffer.push_back(normals[i]);
+		}
+	}
+	ret.setup();
 	return ret;
 }
 Object3D ObjectCreator::createQuad(Vector3 pos, Vector2 size, Camera* camera, Texture* tex) {
@@ -190,24 +192,25 @@ Object3D ObjectCreator::createQuad(Vector3 pos, Vector2 size, Camera* camera, Te
 		0, 0, 1,
 		0, 0, 1
 	};
-	ret.position = &pos;
-	ret.vertexBuffer = (GLfloat*)malloc(sizeof(vertices));
-	memcpy(ret.vertexBuffer, &vertices, sizeof(vertices));
-	ret.indexBuffer = (GLuint*)malloc(sizeof(indices));
-	memcpy(ret.indexBuffer, &indices, sizeof(indices));
-	ret.texBuffer = (GLfloat*)malloc(sizeof(texCoords));
-	memcpy(ret.texBuffer, &texCoords, sizeof(texCoords));
-	if (camera->rendUtils->lighting != nullptr) {
-		ret.normalBuffer = (GLfloat*)malloc(sizeof(normals));
-		memcpy(ret.normalBuffer, &normals, sizeof(normals));
-		ret.normalBufSize = sizeof(normals);
+	ret.position = pos;
+	for (size_t i = 0; i < sizeof(vertices) / sizeof(GLfloat); i++) {
+		ret.vertexBuffer.push_back(vertices[i]);
 	}
-	ret.vertBufSize = sizeof(vertices);
-	ret.indexBufSize = sizeof(indices);
-	ret.texBufSize = sizeof(texCoords);
+	for (size_t i = 0; i < sizeof(indices) / sizeof(GLuint); i++) {
+		ret.indexBuffer.push_back(indices[i]);
+	}
+	for (size_t i = 0; i < sizeof(texCoords) / sizeof(GLfloat); i++) {
+		ret.texBuffer.push_back(texCoords[i]);
+	}
+	if (camera->rendUtils->lighting != nullptr) {
+		for (size_t i = 0; i < sizeof(normals) / sizeof(GLfloat); i++) {
+			ret.normalBuffer.push_back(normals[i]);
+		}
+	}
+	ret.setup();
 	return ret;
 }
-Object3D createSurface(Vector3 pos, Vector2 size, Camera* camera, Texture* tex) {
+Object3D ObjectCreator::createSurface(Vector3 pos, Vector2 size, Camera* camera, Texture* tex) {
 	if (camera == nullptr) {
 		throw std::runtime_error("Camera is null");
 	}
@@ -239,21 +242,22 @@ Object3D createSurface(Vector3 pos, Vector2 size, Camera* camera, Texture* tex) 
 		0, 1, 0,
 		0, 1, 0
 	};
-	ret.position = &pos;
-	ret.vertexBuffer = (GLfloat*)malloc(sizeof(vertices));
-	memcpy(ret.vertexBuffer, &vertices, sizeof(vertices));
-	ret.indexBuffer = (GLuint*)malloc(sizeof(indices));
-	memcpy(ret.indexBuffer, &indices, sizeof(indices));
-	ret.texBuffer = (GLfloat*)malloc(sizeof(texCoords));
-	memcpy(ret.texBuffer, &texCoords, sizeof(texCoords));
-	if (camera->rendUtils->lighting != nullptr) {
-		ret.normalBuffer = (GLfloat*)malloc(sizeof(normals));
-		memcpy(ret.normalBuffer, &normals, sizeof(normals));
-		ret.normalBufSize = sizeof(normals);
+	ret.position = pos;
+	for (size_t i = 0; i < sizeof(vertices) / sizeof(GLfloat); i++) {
+		ret.vertexBuffer.push_back(vertices[i]);
 	}
-	ret.vertBufSize = sizeof(vertices);
-	ret.indexBufSize = sizeof(indices);
-	ret.texBufSize = sizeof(texCoords);
+	for (size_t i = 0; i < sizeof(indices) / sizeof(GLuint); i++) {
+		ret.indexBuffer.push_back(indices[i]);
+	}
+	for (size_t i = 0; i < sizeof(texCoords) / sizeof(GLfloat); i++) {
+		ret.texBuffer.push_back(texCoords[i]);
+	}
+	if (camera->rendUtils->lighting != nullptr) {
+		for (size_t i = 0; i < sizeof(normals) / sizeof(GLfloat); i++) {
+			ret.normalBuffer.push_back(normals[i]);
+		}
+	}
+	ret.setup();
 	return ret;
 }
 Object3D ObjectCreator::createSphere(Vector3 pos, float radius, int sectorCount, int stackCount, Camera* camera, Texture* tex) {
@@ -264,10 +268,6 @@ Object3D ObjectCreator::createSphere(Vector3 pos, float radius, int sectorCount,
 		throw std::runtime_error("Texture is null");
 	}
 	Object3D ret(camera, camera->rendUtils, tex);
-	std::vector<float> vertices;
-	std::vector<unsigned int> indices;
-	std::vector<float> texCoords;
-	std::vector<float> normals;
 	float x, y, z, xy;
 	float nx, ny, nz, lengthInv = 1.0f / radius;
 	float s, t;
@@ -283,19 +283,21 @@ Object3D ObjectCreator::createSphere(Vector3 pos, float radius, int sectorCount,
 			sectorAngle = j * sectorStep;
 			x = xy * cosf(sectorAngle);
 			y = xy * sinf(sectorAngle);
-			vertices.push_back(x + pos.x);
-			vertices.push_back(y + pos.y);
-			vertices.push_back(z + pos.z);
-			nx = x * lengthInv;
-			ny = y * lengthInv;
-			nz = z * lengthInv;
-			normals.push_back(nx);
-			normals.push_back(ny);
-			normals.push_back(nz);
+			ret.vertexBuffer.push_back(x + pos.x);
+			ret.vertexBuffer.push_back(y + pos.y);
+			ret.vertexBuffer.push_back(z + pos.z);
+			if (ret.renderUtils->lighting != nullptr) {
+				nx = x * lengthInv;
+				ny = y * lengthInv;
+				nz = z * lengthInv;
+				ret.normalBuffer.push_back(nx);
+				ret.normalBuffer.push_back(ny);
+				ret.normalBuffer.push_back(nz);
+			}
 			s = (float)j / sectorCount;
 			t = (float)i / stackCount;
-			texCoords.push_back(s);
-			texCoords.push_back(t);
+			ret.texBuffer.push_back(s);
+			ret.texBuffer.push_back(t);
 		}
 	}
 	GLuint k1, k2;
@@ -304,35 +306,18 @@ Object3D ObjectCreator::createSphere(Vector3 pos, float radius, int sectorCount,
 		k2 = k1 + sectorCount + 1;
 		for (int j = 0; j < sectorCount; j++, k1++, k2++) {
 			if (i != 0) {
-				indices.push_back(k1);
-				indices.push_back(k2);
-				indices.push_back(k1 + 1);
+				ret.indexBuffer.push_back(k1);
+				ret.indexBuffer.push_back(k2);
+				ret.indexBuffer.push_back(k1 + 1);
 			}
 			if (i != (stackCount - 1)) {
-				indices.push_back(k1 + 1);
-				indices.push_back(k2);
-				indices.push_back(k2 + 1);
+				ret.indexBuffer.push_back(k1 + 1);
+				ret.indexBuffer.push_back(k2);
+				ret.indexBuffer.push_back(k2 + 1);
 			}
 		}
 	}
-	ret.position = &pos;
-	ret.vertexBuffer = (GLfloat*)malloc(sizeof(GLfloat) * vertices.size());
-	std::copy(vertices.begin(), vertices.end(), ret.vertexBuffer);
-	ret.indexBuffer = (GLuint*)malloc(sizeof(GLuint) * indices.size());
-	std::copy(indices.begin(), indices.end(), ret.indexBuffer);
-	ret.texBuffer = (GLfloat*)malloc(sizeof(GLfloat) * texCoords.size());
-	std::copy(texCoords.begin(), texCoords.end(), ret.texBuffer);
-	if (camera->rendUtils->lighting != nullptr) {
-		ret.normalBuffer = (GLfloat*)malloc(sizeof(GLfloat) * normals.size());
-		std::copy(normals.begin(), normals.end(), ret.normalBuffer);
-		ret.normalBufSize = sizeof(GLfloat) * (GLuint) normals.size();
-	}
-	ret.vertBufSize = (GLuint) sizeof(GLfloat) * (GLuint) vertices.size();
-	ret.indexBufSize = (GLuint) sizeof(GLuint) * (GLuint) indices.size();
-	ret.texBufSize = (GLuint) sizeof(GLfloat) * (GLuint) texCoords.size();
-	normals.clear();
-	vertices.clear();
-	indices.clear();
-	texCoords.clear();
+	ret.position = pos;
+	ret.setup();
 	return ret;
 }

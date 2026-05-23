@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "Program.h"
+#include "Vector3.h"
+#include <vector>
 class Texture {
 public:
 	class Config {
@@ -13,10 +15,10 @@ public:
 	};
 	GLint texSampleNum = 0;
 	GLuint textureId = 0;
-	GLubyte* colorBuffer;
+	std::vector<GLubyte> colorBuffer;
 	int glType = GL_TEXTURE0;
 	void dispose();
-	Texture(GLubyte(&rgb)[3], Program* p, Config cfg);
+	Texture(std::vector<GLubyte>, Program* p, Config cfg);
 	Texture(Program* p, std::string file, Config cfg);
 	Texture() = delete;
 };
