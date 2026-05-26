@@ -44,17 +44,21 @@ int main() {
 	li.pointLights[0].position.y = 2;
 	li.pointLights[0].position.z = 0;
 	RenderUtils re(&program, &li, window);
-	re.init();
 	Camera cam(&re);
 	cam.setPos(Vector3(0.5f, 2, 2));
 	Texture cat(&program, "cat.jpg", Texture::Config());
-	Object3D cube = ObjectCreator::createBox(Vector3(2, 0, -2), Vector3(1, 1, 1), &cam, &cat);
-	GLubyte color2[] = { 0xff, 0, 0 };
-	Texture red(color2, &program, Texture::Config());
+	Object3D cube = ObjectCreator::createBox(Vector3(2, 0, -2), Vector3(1, 0, 0), &cam, &cat);
+	std::vector<GLubyte> vec;
+	vec.push_back(0);
+	vec.push_back(0);
+	vec.push_back(0xff);
+	Texture red(vec, &program, Texture::Config());
 	Object3D sphere = ObjectCreator::createSphere(Vector3(0, 0, 0), 1.0f, 20, 20, &cam, &red);
 	Object3D sphere2 = ObjectCreator::createSphere(Vector3(0, 0, -2), 1.0f, 20, 20, &cam, &red);
-	Object3D* s[] = {&sphere,&sphere2};
-	StaticModel sm(&cam, &re, s, 2);
+	std::vector<Object3D> s;
+	s.push_back(sphere);
+	s.push_back(sphere2);
+	StaticModel sm(&cam, &re, s);
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
@@ -78,7 +82,6 @@ int main() {
 	sphere.dispose();
 	cat.dispose();
 	red.dispose();
-	re.dispose();
 	program.deleteProgram();
 	return 0;
 }

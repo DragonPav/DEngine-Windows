@@ -18,6 +18,41 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\CameraControl.cpp" />
+    <ClCompile Include="src\Lighting.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Matrix4.cpp" />
+    <ClCompile Include="src\Object3D.cpp" />
+    <ClCompile Include="src\ObjectCreator.cpp" />
+    <ClCompile Include="src\Program.cpp" />
+    <ClCompile Include="src\RenderUtils.cpp" />
+    <ClCompile Include="src\Shader.cpp" />
+    <ClCompile Include="src\StaticModel.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\Vector2.cpp" />
+    <ClCompile Include="src\Vector3.cpp" />
+    <ClCompile Include="src\Vector4.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\CameraControl.h" />
+    <ClInclude Include="include\Lighting.h" />
+    <ClInclude Include="include\Matrix4.h" />
+    <ClInclude Include="include\Object3D.h" />
+    <ClInclude Include="include\ObjectBuffer.h" />
+    <ClInclude Include="include\ObjectCreator.h" />
+    <ClInclude Include="include\Program.h" />
+    <ClInclude Include="include\RenderUtils.h" />
+    <ClInclude Include="include\Shader.h" />
+    <ClInclude Include="include\StaticModel.h" />
+    <ClInclude Include="include\stb_image.h" />
+    <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\Vector2.h" />
+    <ClInclude Include="include\Vector3.h" />
+    <ClInclude Include="include\Vector4.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -48,7 +83,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -71,12 +106,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);glew-2.3.1\include;glfw-3.4.bin.WIN64\include;glm</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);include;glew-2.3.1\include;glfw-3.4.bin.WIN64\include;glm</ExternalIncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);glfw-3.4.bin.WIN64\lib-vc2022;glew-2.3.1\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);glew-2.3.1\include;glfw-3.4.bin.WIN64\include;glm</ExternalIncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);glfw-3.4.bin.WIN64\lib-vc2022;glew-2.3.1\lib\Release\x64</LibraryPath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);include;glew-2.3.1\include;glfw-3.4.bin.WIN64\include;glm</ExternalIncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);glfw-3.4.bin.WIN64\lib-vc2022;glew-2.3.1\lib</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -136,39 +171,6 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraControl.cpp" />
-    <ClCompile Include="Lighting.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Matrix4.cpp" />
-    <ClCompile Include="Program.cpp" />
-    <ClCompile Include="StaticModel.cpp" />
-    <ClCompile Include="Object3D.cpp" />
-    <ClCompile Include="ObjectCreator.cpp" />
-    <ClCompile Include="RenderUtils.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Vector2.cpp" />
-    <ClCompile Include="Vector3.cpp" />
-    <ClCompile Include="Vector4.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraControl.h" />
-    <ClInclude Include="Lighting.h" />
-    <ClInclude Include="Matrix4.h" />
-    <ClInclude Include="StaticModel.h" />
-    <ClInclude Include="Object3D.h" />
-    <ClInclude Include="ObjectCreator.h" />
-    <ClInclude Include="Program.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="Vector4.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
