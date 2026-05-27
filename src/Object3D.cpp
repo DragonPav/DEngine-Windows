@@ -42,7 +42,7 @@ void Object3D::render() {
 	else {
 		glUniform1i(texture->texSampleNum, texture->glType % GL_TEXTURE0);
 	}
-	glDrawElements(GL_TRIANGLES, (GLuint) indexBuffer.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(polygonMode, (GLuint) indexBuffer.size(), GL_UNSIGNED_INT, 0);
 	GLenum err;
 	while ((err = glGetError()) != GL_NO_ERROR) {
 		std::cout << "OpenGL error occured: 0x" << std::hex << err << std::dec << std::endl;

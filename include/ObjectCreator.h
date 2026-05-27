@@ -9,5 +9,6 @@ public:
 	static Object3D createQuad(Vector3 pos, Vector2 size, Camera* camera, Texture* tex);
 	static Object3D createSurface(Vector3 pos, Vector2 size, Camera* camera, Texture* tex);
 	static Object3D createSphere(Vector3 pos, float radius, int sectorCount, int stackCount, Camera* camera, Texture* tex);
+	static Object3D createBoxWireframe(Vector3 pos, Vector3 size, Camera* camera, Texture* texture);
 	ObjectCreator() = default;
 };

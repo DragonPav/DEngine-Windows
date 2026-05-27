@@ -8,6 +8,7 @@ class CameraControl {
 public:
 	GLFWwindow* window = nullptr;
 	void setup(Camera* camera);
+	void setSensitivity(float sense);
 	CameraControl() = delete;
 	CameraControl(RenderUtils* renderUtils);
 };

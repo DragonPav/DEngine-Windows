@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BoundingBox.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CameraControl.cpp" />
     <ClCompile Include="src\Lighting.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="src\Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\BoundingBox.h" />
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\CameraControl.h" />
     <ClInclude Include="include\Lighting.h" />

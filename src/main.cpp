@@ -44,24 +44,26 @@ int main() {
 	li.pointLights[0].position.y = 2;
 	li.pointLights[0].position.z = 0;
 	RenderUtils re(&program, &li, window);
-	Camera cam(&re);
+	int width, height;
+	glfwGetFramebufferSize(window, &width, &height);
+	glViewport(0, 0, width, height);
+	Camera cam(&re, width, height);
 	cam.setPos(Vector3(0.5f, 2, 2));
-	Texture cat(&program, "cat.jpg", Texture::Config());
-	Object3D cube = ObjectCreator::createBox(Vector3(2, 0, -2), Vector3(1, 0, 0), &cam, &cat);
-	std::vector<GLubyte> vec;
-	vec.push_back(0);
-	vec.push_back(0);
-	vec.push_back(0xff);
-	Texture red(vec, &program, Texture::Config());
-	Object3D sphere = ObjectCreator::createSphere(Vector3(0, 0, 0), 1.0f, 20, 20, &cam, &red);
-	Object3D sphere2 = ObjectCreator::createSphere(Vector3(0, 0, -2), 1.0f, 20, 20, &cam, &red);
+	Texture red({0xff, 0, 0}, &program, Texture::Config());
+	Texture yellow({0xff, 0xff, 0}, &program, Texture::Config());
+	BoundingBox bb, bb1;
+	Object3D sphere = ObjectCreator::createSphere(Vector3(0, 0, 0), 1.0f, 36, 18, &cam, &red);
+	bb = sphere.bounds;
+	Object3D box = ObjectCreator::createBoxWireframe(Vector3(bb.getCenter()), Vector3(bb.getSizes()), &cam, &yellow);
+	Object3D sphere2 = ObjectCreator::createSphere(Vector3(0, 0, -2), 1.0f, 36, 18, &cam, &red);
+	bb1 = sphere2.bounds;
+	Object3D box1 = ObjectCreator::createBoxWireframe(Vector3(bb1.getCenter()), Vector3(bb1.getSizes()), &cam, &yellow);
 	std::vector<Object3D> s;
 	s.push_back(sphere);
 	s.push_back(sphere2);
 	StaticModel sm(&cam, &re, s);
-	int width, height;
-	glfwGetFramebufferSize(window, &width, &height);
-	glViewport(0, 0, width, height);
+	sphere.dispose();
+	sphere2.dispose();
 	cam.perspective(80, (float) width / (float) height, 0.1f, 100.0f);
 	CameraControl cc(&re);
 	cam.setCameraControl(&cc);
@@ -69,19 +71,27 @@ int main() {
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		cube.begin();
-		cube.render();
-		cube.end();
 		sm.begin();
 		sm.render();
 		sm.end();
+		if (cam.isMouseOverBoundingBox(cam.mousePosX, cam.mousePosY, &bb)) {
+			box.begin();
+			box.render();
+			box.end();
+		}
+		if (cam.isMouseOverBoundingBox(cam.mousePosX, cam.mousePosY, &bb1)) {
+			box1.begin();
+			box1.render();
+			box1.end();
+		}
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-	cube.dispose();
-	sphere.dispose();
-	cat.dispose();
+	sm.dispose();
+	box.dispose();
+	box1.dispose();
 	red.dispose();
+	yellow.dispose();
 	program.deleteProgram();
 	return 0;
 }
