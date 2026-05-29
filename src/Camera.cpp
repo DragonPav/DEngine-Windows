@@ -39,7 +39,9 @@ bool Camera::isMouseOverBoundingBox(float mouseX, float mouseY, BoundingBox* bou
 	float tFar = glm::min(glm::min(tMax.x, tMax.y), tMax.z);
 	return tNear <= tFar && tFar >= 0;
 }
-Camera::Camera(RenderUtils* re, int scrW, int scrH) {
+Camera::Camera(RenderUtils* re) {
+	int scrW, scrH;
+	glfwGetFramebufferSize(re->window, &scrW, &scrH);
 	screenWidth = scrW;
 	screenHeight = scrH;
 	rendUtils = re;

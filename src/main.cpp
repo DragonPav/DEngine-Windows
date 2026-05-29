@@ -47,7 +47,7 @@ int main() {
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);
 	glViewport(0, 0, width, height);
-	Camera cam(&re, width, height);
+	Camera cam(&re);
 	cam.setPos(Vector3(0.5f, 2, 2));
 	Texture red({0xff, 0, 0}, &program, Texture::Config());
 	Texture yellow({0xff, 0xff, 0}, &program, Texture::Config());

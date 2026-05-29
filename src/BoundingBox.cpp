@@ -4,10 +4,9 @@ BoundingBox::BoundingBox(Vector3 min, Vector3 max) {
 	this->max = max;
 }
 bool BoundingBox::contains(Vector3 vec) {
-	if ((vec.x >= min.x && vec.x <= max.x) &&
+	return (vec.x >= min.x && vec.x <= max.x) &&
 		(vec.y >= min.y && vec.y <= max.y) &&
-		(vec.z >= min.z && vec.z <= max.z)) return true;
-	else return false;
+		(vec.z >= min.z && vec.z <= max.z);
 }
 Vector3 BoundingBox::getSizes() {
 	float sizeX = max.x - min.x;

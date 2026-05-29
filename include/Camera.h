@@ -25,5 +25,5 @@ public:
 	Vector3 getMouseWorldRay(float mouseX, float mouseY);
 	bool isMouseOverBoundingBox(float mouseX, float mouseY, BoundingBox* bounds);
 	Camera() = delete;
-	Camera(RenderUtils* re, int scrW, int scrH);
+	Camera(RenderUtils* re);
 };
